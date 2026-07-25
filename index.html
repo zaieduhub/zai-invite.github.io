@@ -2015,9 +2015,12 @@
             }, { passive: true });
         })();
 
-        // ===== SMOOTH WHEEL SCROLL (enhanced smooth feel) =====
+        // ===== SMOOTH WHEEL SCROLL (desktop only, enhanced smooth feel) =====
         (function() {
-            const body = document.body;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            // Only enable on desktop with physical mouse
+            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
             let isScrolling = false;
             let targetScroll = window.scrollY;
             let currentScroll = window.scrollY;
@@ -2025,12 +2028,12 @@
             window.addEventListener('wheel', e => {
                 if (e.deltaY === 0) return;
                 e.preventDefault();
-                targetScroll += e.deltaY * 0.8;
+                targetScroll += e.deltaY * 1.0;
                 targetScroll = Math.max(0, Math.min(targetScroll, document.documentElement.scrollHeight - window.innerHeight));
                 if (!isScrolling) {
                     isScrolling = true;
                     function smoothScroll() {
-                        currentScroll += (targetScroll - currentScroll) * 0.12;
+                        currentScroll += (targetScroll - currentScroll) * 0.15;
                         if (Math.abs(targetScroll - currentScroll) < 0.5) {
                             currentScroll = targetScroll;
                             isScrolling = false;
