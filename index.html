@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farewell Tea Party | T/KIN/AL-MINA MAHA VIDYALAYA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #07070d;
+            --bg-secondary: #0d0d1a;
+            --bg-card: rgba(15, 15, 28, 0.75);
+            --gold: #D4AF37;
+            --gold-light: #F0D060;
+            --gold-dark: #B8962E;
+            --gold-glow: rgba(212, 175, 55, 0.3);
+            --emerald: #2ECC71;
+            --emerald-dark: #1ABC9C;
+            --emerald-glow: rgba(46, 204, 113, 0.2);
+            --amber: #F39C12;
+            --amber-glow: rgba(243, 156, 18, 0.2);
+            --rose: #E74C8B;
+            --text-primary: #F5F0E8;
+            --text-secondary: #C8C0B0;
+            --text-muted: #8A8478;
+            --glass-border: rgba(212, 175, 55, 0.12);
+            --glass-shadow: rgba(212, 175, 55, 0.06);
+            --radius: 20px;
+            --radius-sm: 12px;
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gold-dark), var(--gold));
+            border-radius: 10px;
+        }
+
+        /* ===== GLOBAL PARTICLES ===== */
+        #particles-canvas {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+
+        /* ===== HERO BG CANVAS (separate layer for hero richness) ===== */
+        #hero-canvas {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+        }
+
+        /* ===== CUSTOM CURSOR ===== */
+        .cursor { display: none; }
+        @media (hover: hover) and (pointer: fine) {
+            .cursor {
+                display: block;
+                position: fixed; width: 24px; height: 24px;
+                border: 2px solid var(--gold);
+                border-radius: 50%;
+                pointer-events: none; z-index: 9999;
+                mix-blend-mode: difference;
+                transform: translate(-50%, -50%);
+                transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+            }
+            .cursor-inner {
+                position: fixed; width: 4px; height: 4px;
+                background: var(--gold-light);
+                border-radius: 50%;
+                pointer-events: none; z-index: 9999;
+                transform: translate(-50%, -50%);
+            }
+            .cursor.hover {
+                width: 48px; height: 48px;
+                background: rgba(212, 175, 55, 0.08);
+                border-color: var(--gold-light);
+            }
+        }
+
+        /* ===== SECTION ===== */
+        section {
+            position: relative; z-index: 1;
+            padding: 100px 20px;
+        }
+        .container {
+            max-width: 1100px; margin: 0 auto;
+            position: relative; z-index: 1;
+        }
+
+        /* ===== FLOATING DECORATIONS ===== */
+        .float-diamond {
+            position: fixed;
+            width: 14px; height: 14px;
+            border: 2px solid rgba(212, 175, 55, 0.15);
+            transform: rotate(45deg);
+            pointer-events: none; z-index: 0;
+            animation: floatDiamond 7s ease-in-out infinite;
+        }
+        @keyframes floatDiamond {
+            0%, 100% { transform: rotate(45deg) translateY(0) scale(1); border-color: rgba(212, 175, 55, 0.15); }
+            50% { transform: rotate(45deg) translateY(-20px) scale(1.2); border-color: rgba(212, 175, 55, 0.4); opacity: 0.8; }
+        }
+
+        /* ===== SECTION LABEL & TITLE ===== */
+        .section-label {
+            display: inline-flex; align-items: center; gap: 12px;
+            font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 4px; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 12px;
+        }
+        .section-label .line {
+            display: inline-block; width: 40px; height: 1px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+        .section-label .line.left { background: linear-gradient(90deg, transparent, var(--gold)); }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 700; margin-bottom: 50px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(212,175,55,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(46,204,113,0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(15,15,30,0.3) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Animated floating golden particles around hero (replaces old border) */
+        .hero-particles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .hero-particle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: floatParticle 8s ease-in-out infinite;
+            opacity: 0;
+        }
+        .hero-particle:nth-child(1) { left: 10%; top: 10%; animation-delay: 0s; animation-duration: 7s; }
+        .hero-particle:nth-child(2) { left: 85%; top: 15%; animation-delay: 0.8s; animation-duration: 9s; width: 3px; height: 3px; }
+        .hero-particle:nth-child(3) { left: 20%; top: 70%; animation-delay: 1.6s; animation-duration: 8s; }
+        .hero-particle:nth-child(4) { left: 75%; top: 60%; animation-delay: 2.4s; animation-duration: 10s; width: 5px; height: 5px; }
+        .hero-particle:nth-child(5) { left: 50%; top: 5%; animation-delay: 3.2s; animation-duration: 7.5s; }
+        .hero-particle:nth-child(6) { left: 90%; top: 80%; animation-delay: 0.4s; animation-duration: 8.5s; width: 3px; height: 3px; }
+        .hero-particle:nth-child(7) { left: 5%; top: 40%; animation-delay: 2s; animation-duration: 9.5s; }
+        .hero-particle:nth-child(8) { left: 60%; top: 85%; animation-delay: 1.2s; animation-duration: 7s; width: 6px; height: 6px; }
+        .hero-particle:nth-child(9) { left: 35%; top: 90%; animation-delay: 2.8s; animation-duration: 8s; width: 3px; height: 3px; }
+        .hero-particle:nth-child(10) { left: 70%; top: 35%; animation-delay: 1.8s; animation-duration: 9s; }
+        @keyframes floatParticle {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            20% { opacity: 0.6; }
+            50% { transform: translate(20px, -30px) scale(1.2); opacity: 0.8; }
+            80% { opacity: 0.3; }
+            100% { transform: translate(-10px, -60px) scale(0); opacity: 0; }
+        }
+
+        /* Organizing committee badge */
+        .hero-committee {
+            margin-top: 25px;
+            padding: 12px 24px;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            background: rgba(15, 15, 28, 0.4);
+            backdrop-filter: blur(8px);
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(12px);
+        }
+        .hero-committee .com-label {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .hero-committee .com-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+            color: var(--gold-light);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .hero-committee .com-text span {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            margin-top: 2px;
+        }
+
+        .hero-content {
+            position: relative; z-index: 5;
+            max-width: 900px;
+        }
+
+        /* ===== HOT COFFEE CUP LOGO ===== */
+        .coffee-cup-logo {
+            width: 80px; height: 80px;
+            margin: 0 auto 25px;
+            position: relative;
+            filter: drop-shadow(0 0 20px rgba(212,175,55,0.2));
+        }
+        .coffee-cup-logo svg {
+            width: 100%; height: 100%;
+            display: block;
+        }
+        .coffee-cup-logo .cup-body {
+            fill: none;
+            stroke: url(#cupGrad);
+            stroke-width: 2;
+        }
+        .coffee-cup-logo .cup-handle {
+            fill: none;
+            stroke: url(#cupGrad);
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+        .coffee-cup-logo .cup-liquid {
+            fill: url(#liquidGrad);
+            opacity: 0;
+            animation: liquidFill 2s ease-out 0.5s forwards;
+        }
+        @keyframes liquidFill {
+            0% { opacity: 0; }
+            100% { opacity: 0.3; }
+        }
+
+        /* Steam rings */
+        .steam-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1.5px solid rgba(212, 175, 55, 0.15);
+            pointer-events: none;
+            opacity: 0;
+            animation: steamRise 3s ease-out infinite;
+        }
+        .steam-ring:nth-child(2) {
+            width: 20px; height: 20px;
+            top: -18px; left: 50%;
+            margin-left: -10px;
+            animation-delay: 0s;
+        }
+        .steam-ring:nth-child(3) {
+            width: 14px; height: 14px;
+            top: -28px; left: 50%;
+            margin-left: -7px;
+            animation-delay: 1s;
+            border-color: rgba(212, 175, 55, 0.1);
+        }
+        .steam-ring:nth-child(4) {
+            width: 10px; height: 10px;
+            top: -36px; left: 50%;
+            margin-left: -5px;
+            animation-delay: 2s;
+            border-color: rgba(212, 175, 55, 0.08);
+        }
+        @keyframes steamRise {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { opacity: 0.6; }
+            60% { opacity: 0.3; }
+            100% { transform: translateY(-20px) scale(1.8); opacity: 0; }
+        }
+
+        /* Golden glow pulse behind cup */
+        .coffee-cup-glow {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+            animation: glowPulse 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes glowPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+        }
+
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 12px;
+            padding: 10px 28px;
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            background: rgba(212, 175, 55, 0.06);
+            backdrop-filter: blur(12px);
+            font-size: 0.8rem; font-weight: 500;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 35px;
+            position: relative; overflow: hidden;
+            opacity: 0;
+        }
+        .hero-badge::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.12), transparent);
+            transform: translateX(-100%);
+            animation: shimmerBadge 3s ease-in-out infinite 1s;
+        }
+        @keyframes shimmerBadge {
+            0% { transform: translateX(-100%); }
+            50%, 100% { transform: translateX(100%); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 25%, var(--text-primary) 55%, var(--gold-light) 80%, var(--gold) 100%);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .hero-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            line-height: 1.05;
+        }
+        .title-line {
+            display: block;
+        }
+        .title-line.farewell {
+            font-size: clamp(2.8rem, 9vw, 6.5rem);
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin-bottom: -0.1em;
+        }
+        .title-line.tea-party {
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            font-weight: 600;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--text-primary) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmerText 4s ease-in-out infinite 1s;
+        }
+        .title-line .title-char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(60px) rotateX(-40deg);
+        }
+        .title-line .title-space {
+            display: inline-block;
+            width: 0.3em;
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+            font-weight: 400; font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            min-height: 2.4rem;
+        }
+        .hero-subtitle .cursor-blink {
+            display: inline-block;
+            width: 2px; height: 1.2em;
+            background: var(--gold);
+            margin-left: 4px;
+            animation: blink 0.8s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .hero-school-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+            opacity: 0;
+            text-shadow: 0 0 20px rgba(212,175,55,0.2);
+        }
+
+        .hero-date-line {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            opacity: 0;
+        }
+        .hero-date-line strong {
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+
+        .hero-divider {
+            width: 120px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 25px auto;
+            opacity: 0;
+        }
+
+        /* Section animated bg overlay (shared by all sections except hero) */
+        .section-bg-shimmer {
+            position: absolute; inset: 0;
+            pointer-events: none; z-index: 0;
+            overflow: hidden;
+        }
+        .section-bg-shimmer::before {
+            content: '';
+            position: absolute; inset: -50%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                rgba(212,175,55,0.02) 60deg,
+                transparent 120deg,
+                rgba(46,204,113,0.015) 180deg,
+                transparent 240deg,
+                rgba(212,175,55,0.02) 300deg,
+                transparent 360deg
+            );
+            animation: shimmerRotate 20s linear infinite;
+        }
+        @keyframes shimmerRotate {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Floating orbs for each section */
+        .section-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none; z-index: 0;
+            filter: blur(60px);
+            animation: orbDrift 15s ease-in-out infinite;
+        }
+        .section-orb.gold {
+            background: radial-gradient(circle, rgba(212,175,55,0.06), transparent);
+        }
+        .section-orb.emerald {
+            background: radial-gradient(circle, rgba(46,204,113,0.04), transparent);
+        }
+        .section-orb.amber {
+            background: radial-gradient(circle, rgba(243,156,18,0.04), transparent);
+        }
+        @keyframes orbDrift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -20px) scale(1.1); }
+            66% { transform: translate(-20px, 15px) scale(0.9); }
+        }
+
+        /* ===== COUNTDOWN ===== */
+        .countdown-section {
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+            padding: 80px 20px;
+        }
+        .countdown-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+        }
+        .countdown-grid {
+            display: flex; justify-content: center; gap: 30px;
+            flex-wrap: wrap;
+        }
+        .countdown-item {
+            text-align: center;
+            min-width: 100px;
+            padding: 25px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            backdrop-filter: blur(10px);
+            position: relative;
+            transition: all 0.4s var(--ease-smooth);
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        .countdown-item.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .countdown-item:nth-child(1) { transition-delay: 0.05s; }
+        .countdown-item:nth-child(2) { transition-delay: 0.1s; }
+        .countdown-item:nth-child(3) { transition-delay: 0.15s; }
+        .countdown-item:nth-child(4) { transition-delay: 0.2s; }
+
+        .countdown-item:hover {
+            transform: translateY(-5px) !important;
+            border-color: rgba(212, 175, 55, 0.25);
+            box-shadow: 0 10px 40px var(--glass-shadow);
+        }
+        .countdown-item .number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--gold-light);
+            line-height: 1;
+            display: block;
+        }
+        .countdown-item .label {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 8px;
+            display: block;
+        }
+        .countdown-item .glow-dot {
+            position: absolute; top: -2px; left: 50%;
+            transform: translateX(-50%);
+            width: 6px; height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 6px var(--gold-glow); opacity: 0.6; }
+            50% { box-shadow: 0 0 20px var(--gold-glow); opacity: 1; }
+        }
+
+        /* ===== EVENT DETAILS ===== */
+        .event-details { background: var(--bg-primary); }
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px; max-width: 900px; margin: 0 auto;
+        }
+        .detail-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 45px 30px 40px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            position: relative; overflow: hidden;
+            transform: translateY(60px); opacity: 0;
+            transition: all 0.7s var(--ease-smooth);
+            cursor: default;
+        }
+        .detail-card.visible { transform: translateY(0); opacity: 1; }
+        .detail-card:nth-child(1) { transition-delay: 0.05s; }
+        .detail-card:nth-child(2) { transition-delay: 0.15s; }
+        .detail-card:nth-child(3) { transition-delay: 0.25s; }
+
+        .detail-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .detail-card:hover::before { opacity: 1; }
+        .detail-card:hover {
+            transform: translateY(-10px) scale(1.02) !important;
+            border-color: rgba(212, 175, 55, 0.25);
+            box-shadow: 0 25px 70px var(--glass-shadow);
+        }
+
+        .detail-icon {
+            font-size: 2.8rem; margin-bottom: 22px;
+            display: block;
+            animation: gentleFloat 3s ease-in-out infinite;
+        }
+        .detail-card:nth-child(1) .detail-icon { animation-delay: 0s; }
+        .detail-card:nth-child(2) .detail-icon { animation-delay: 0.3s; }
+        .detail-card:nth-child(3) .detail-icon { animation-delay: 0.6s; }
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .detail-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; font-weight: 700;
+            color: var(--gold-light); margin-bottom: 12px;
+        }
+        .detail-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem; line-height: 1.7;
+        }
+        .detail-card .highlight {
+            color: var(--text-primary); font-weight: 600;
+            font-size: 1.05rem;
+        }
+        .detail-card .sub-text {
+            font-size: 0.85rem; color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== MESSAGE SECTION ===== */
+        .message-section { background: var(--bg-secondary); }
+        .message-card {
+            max-width: 800px; margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 70px 55px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            transform: translateY(60px); opacity: 0;
+            transition: all 0.8s var(--ease-smooth);
+        }
+        .message-card.visible { transform: translateY(0); opacity: 1; }
+
+        /* Decorative quote marks */
+        .message-card .quote-mark {
+            position: absolute;
+            font-family: 'Playfair Display', serif;
+            font-size: 7rem; line-height: 1;
+            opacity: 0.06;
+            color: var(--gold);
+            pointer-events: none;
+        }
+        .message-card .quote-mark.top { top: 15px; left: 25px; }
+        .message-card .quote-mark.bottom { bottom: -10px; right: 25px; }
+
+        .message-card:hover {
+            border-color: rgba(212, 175, 55, 0.25);
+            box-shadow: 0 25px 70px var(--glass-shadow);
+        }
+
+        .message-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-weight: 400; font-style: italic;
+            color: var(--text-secondary);
+            line-height: 2;
+            margin-bottom: 35px;
+        }
+        .message-author {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem; font-weight: 600;
+            color: var(--gold-light);
+        }
+        .message-author span {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem; font-weight: 400;
+            color: var(--text-muted); margin-top: 6px;
+            font-style: normal;
+        }
+
+        /* ===== GRATITUDE / TEACHERS THANK YOU ===== */
+        .gratitude-section { background: var(--bg-primary); }
+
+        .gratitude-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
+            max-width: 960px;
+            margin: 0 auto 50px;
+        }
+
+        .gratitude-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: 32px 24px 28px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transform: translateY(50px); opacity: 0;
+            transition: all 0.6s var(--ease-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        .gratitude-card.visible { transform: translateY(0); opacity: 1; }
+        .gratitude-card:nth-child(1) { transition-delay: 0.02s; }
+        .gratitude-card:nth-child(2) { transition-delay: 0.06s; }
+        .gratitude-card:nth-child(3) { transition-delay: 0.1s; }
+        .gratitude-card:nth-child(4) { transition-delay: 0.14s; }
+        .gratitude-card:nth-child(5) { transition-delay: 0.18s; }
+        .gratitude-card:nth-child(6) { transition-delay: 0.22s; }
+        .gratitude-card:nth-child(7) { transition-delay: 0.26s; }
+        .gratitude-card:nth-child(8) { transition-delay: 0.3s; }
+        .gratitude-card:nth-child(9) { transition-delay: 0.34s; }
+        .gratitude-card:nth-child(10) { transition-delay: 0.38s; }
+        .gratitude-card:nth-child(11) { transition-delay: 0.42s; }
+        .gratitude-card:nth-child(12) { transition-delay: 0.46s; }
+
+        .gratitude-card::after {
+            content: '';
+            position: absolute; bottom: 0; left: 20%; right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease, left 0.4s ease, right 0.4s ease;
+        }
+        .gratitude-card:hover::after {
+            opacity: 0.5;
+            left: 5%; right: 5%;
+        }
+        .gratitude-card:hover {
+            transform: translateY(-6px) scale(1.03) !important;
+            border-color: rgba(212, 175, 55, 0.2);
+            box-shadow: 0 12px 40px var(--glass-shadow);
+        }
+
+        .gratitude-card .emoji {
+            font-size: 2.2rem;
+            margin-bottom: 14px;
+            display: block;
+            transition: transform 0.3s var(--ease-bounce);
+        }
+        .gratitude-card:hover .emoji {
+            transform: scale(1.3) rotate(-5deg);
+        }
+        .gratitude-card h4 {
+            font-size: 1rem; font-weight: 600;
+            color: var(--text-primary); margin-bottom: 6px;
+        }
+        .gratitude-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Big Thank You Banner */
+        .thankyou-banner {
+            max-width: 800px; margin: 0 auto;
+            text-align: center;
+            padding: 50px 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(50px); opacity: 0;
+            transition: all 0.8s var(--ease-smooth);
+        }
+        .thankyou-banner.visible { transform: translateY(0); opacity: 1; }
+
+        .thankyou-banner::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, rgba(212,175,55,0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .thankyou-banner h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            color: var(--gold-light);
+            margin-bottom: 15px;
+        }
+        .thankyou-banner p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline-section {
+            background: var(--bg-secondary);
+            position: relative;
+        }
+        .timeline {
+            max-width: 700px; margin: 0 auto;
+            position: relative;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute; left: 50%;
+            transform: translateX(-50%);
+            top: 0; bottom: 0;
+            width: 1px;
+            background: linear-gradient(180deg, transparent, var(--gold), var(--emerald-dark), transparent);
+            opacity: 0.3;
+        }
+        .timeline-item {
+            display: flex; align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            transform: translateX(-30px); opacity: 0;
+            transition: all 0.8s var(--ease-smooth);
+        }
+        .timeline-item.visible { transform: translateX(0); opacity: 1; }
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+            transform: translateX(30px);
+        }
+        .timeline-item:nth-child(even).visible { transform: translateX(0); }
+
+        .timeline-item .dot {
+            min-width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: 3px solid var(--bg-secondary);
+            box-shadow: 0 0 0 2px rgba(212,175,55,0.3);
+            position: relative;
+            z-index: 2;
+            animation: pulseDot 3s ease-in-out infinite;
+        }
+        @keyframes pulseDot {
+            0%, 100% { box-shadow: 0 0 0 2px rgba(212,175,55,0.3); }
+            50% { box-shadow: 0 0 0 6px rgba(212,175,55,0.1); }
+        }
+
+        .timeline-item .content {
+            flex: 1;
+            padding: 20px 25px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            backdrop-filter: blur(10px);
+        }
+        .timeline-item:hover .content {
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+        .timeline-item .content .year {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem; font-weight: 700;
+            color: var(--gold-light);
+        }
+        .timeline-item .content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-section {
+            background: var(--bg-primary);
+            text-align: center;
+            padding: 80px 20px 50px;
+            position: relative;
+        }
+
+        .footer-content { max-width: 600px; margin: 0 auto; }
+
+        .invitation-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--gold-light);
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .footer-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .footer-details {
+            display: inline-block;
+            padding: 16px 32px;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .footer-details strong {
+            color: var(--gold-light);
+        }
+
+        .footer-divider {
+            width: 60px; height: 1px;
+            background: var(--gold); margin: 30px auto;
+            opacity: 0.3;
+        }
+
+        .footer-credit {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* ===== AUTHOR CREDIT ===== */
+        .author-credit {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding: 14px 24px;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s var(--ease-smooth);
+        }
+        .author-credit:hover {
+            border-color: rgba(212, 175, 55, 0.25);
+            box-shadow: 0 8px 30px var(--glass-shadow);
+            transform: translateY(-2px);
+        }
+        .author-credit-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+        .author-credit-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .author-credit-text {
+            text-align: left;
+        }
+        .author-credit-text strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gold-light);
+        }
+        .author-credit-text span {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== FLOATING REVEAL ANIMATION (scroll elements float in) ===== */
+        @keyframes floatReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.97);
+                filter: blur(4px);
+            }
+            40% {
+                opacity: 1;
+                transform: translateY(-8px) scale(1.01);
+                filter: blur(0);
+            }
+            70% {
+                transform: translateY(3px) scale(0.99);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Apply floating reveal to all scroll-reveal elements */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(40px) scale(0.97);
+            filter: blur(4px);
+            transition: none !important;
+        }
+        [data-reveal].visible {
+            animation: floatReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Override specific element initial states */
+        .detail-card[data-reveal],
+        .message-card[data-reveal],
+        .gratitude-card[data-reveal],
+        .thankyou-banner[data-reveal],
+        .countdown-item[data-reveal],
+        .timeline-item[data-reveal] {
+            opacity: 0;
+            transform: translateY(40px) scale(0.97);
+            filter: blur(4px);
+            transition: none !important;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .detail-card, .message-card, .gratitude-card,
+            .thankyou-banner, .countdown-item, .timeline-item {
+                transform: none !important; opacity: 1 !important;
+            }
+            [data-reveal], [data-reveal].visible {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+            }
+            .cursor, .cursor-inner { display: none !important; }
+            .section-bg-shimmer, .section-orb, .hero-particles, .steam-ring, .coffee-cup-glow {
+                display: none !important;
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            section { padding: 70px 16px; }
+            .hero { padding: 100px 16px 60px; min-height: 90vh; }
+            .hero-badge { font-size: 0.65rem; padding: 8px 18px; letter-spacing: 2px; }
+            .message-card { padding: 45px 25px; }
+            .message-card .quote-mark { font-size: 4rem; }
+            .details-grid { grid-template-columns: 1fr; }
+            .gratitude-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .countdown-grid { gap: 14px; }
+            .countdown-item { min-width: 70px; padding: 18px 12px; }
+            .timeline::before { left: 20px; }
+            .timeline-item, .timeline-item:nth-child(even) {
+                flex-direction: row !important;
+                transform: translateX(0) !important;
+                padding-left: 45px;
+            }
+            .timeline-item .dot { min-width: 14px; height: 14px; position: absolute; left: 13px; }
+            .cursor, .cursor-inner { display: none !important; }
+            .footer-details { font-size: 0.8rem; padding: 14px 20px; }
+            .author-credit { padding: 12px 16px; gap: 10px; flex-wrap: wrap; justify-content: center; }
+            .author-credit-logo { width: 32px; height: 32px; }
+            .author-credit-text strong { font-size: 0.8rem; }
+            .author-credit-text span { font-size: 0.65rem; }
+        }
+
+        @media (max-width: 480px) {
+            .gratitude-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .gratitude-card { padding: 22px 14px 18px; }
+            .detail-card { padding: 30px 20px; }
+            .thankyou-banner { padding: 35px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <noscript>
+        <div style="position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; background: #07070d; color: #D4AF37; font-family: 'Playfair Display', serif; font-size: 1.2rem; text-align: center; padding: 20px;">
+            Please enable JavaScript to view this invitation.
+        </div>
+    </noscript>
+
+    <!-- ===== CURSOR ===== -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-inner" id="cursorInner"></div>
+
+    <!-- ===== PARTICLES ===== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ===== FLOATING DIAMONDS ===== -->
+    <div class="float-diamond" style="top: 12%; left: 3%; animation-delay: 0s;"></div>
+    <div class="float-diamond" style="top: 40%; right: 4%; animation-delay: 2s;"></div>
+    <div class="float-diamond" style="bottom: 20%; left: 6%; animation-delay: 4s;"></div>
+    <div class="float-diamond" style="bottom: 45%; right: 3%; animation-delay: 1s;"></div>
+    <div class="float-diamond" style="top: 70%; left: 2%; animation-delay: 3s;"></div>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+        <div class="hero-particles">
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+        </div>
+        <canvas id="hero-canvas"></canvas>
+
+        <div class="hero-content">
+            <!-- Hot Coffee Cup Logo -->
+            <div class="coffee-cup-logo" id="coffeeCup">
+                <div class="coffee-cup-glow"></div>
+                <div class="steam-ring"></div>
+                <div class="steam-ring"></div>
+                <div class="steam-ring"></div>
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="cupGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#D4AF37"/>
+                            <stop offset="50%" stop-color="#F0D060"/>
+                            <stop offset="100%" stop-color="#B8962E"/>
+                        </linearGradient>
+                        <linearGradient id="liquidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#F0D060"/>
+                            <stop offset="100%" stop-color="#B8962E"/>
+                        </linearGradient>
+                        <radialGradient id="steamGrad" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="rgba(212,175,55,0.4)"/>
+                            <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
+                        </radialGradient>
+                    </defs>
+                    <!-- Cup body -->
+                    <path class="cup-body" d="M25 30 L25 70 C25 78 30 82 40 82 L60 82 C70 82 75 78 75 70 L75 30 Z"/>
+                    <!-- Cup handle -->
+                    <path class="cup-handle" d="M75 38 C88 38 88 68 75 68"/>
+                    <!-- Liquid surface -->
+                    <ellipse class="cup-liquid" cx="50" cy="34" rx="23" ry="5"/>
+                    <!-- Saucer -->
+                    <ellipse cx="50" cy="85" rx="32" ry="4" fill="none" stroke="url(#cupGrad)" stroke-width="1.5" opacity="0.4"/>
+                    <!-- Decorative steam wisps (SVG animated) -->
+                    <path d="M40 28 C38 22 42 16 40 10" stroke="url(#steamGrad)" stroke-width="2" stroke-linecap="round" opacity="0">
+                        <animate attributeName="d" values="M40 28 C38 22 42 16 40 10;M40 28 C36 20 44 14 38 6;M40 28 C38 22 42 16 40 10" dur="3s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.5;0" dur="3s" repeatCount="indefinite"/>
+                    </path>
+                    <path d="M55 28 C53 20 57 14 55 8" stroke="url(#steamGrad)" stroke-width="2" stroke-linecap="round" opacity="0">
+                        <animate attributeName="d" values="M55 28 C53 20 57 14 55 8;M55 28 C51 18 59 12 53 4;M55 28 C53 20 57 14 55 8" dur="2.5s" repeatCount="indefinite" begin="0.8s"/>
+                        <animate attributeName="opacity" values="0;0.4;0" dur="2.5s" repeatCount="indefinite" begin="0.8s"/>
+                    </path>
+                    <!-- Steam dots rising -->
+                    <circle cx="44" cy="15" r="1.5" fill="rgba(212,175,55,0.3)" opacity="0">
+                        <animate attributeName="cy" values="28;5;28" dur="4s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.6;0" dur="4s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="56" cy="12" r="1" fill="rgba(212,175,55,0.2)" opacity="0">
+                        <animate attributeName="cy" values="28;2;28" dur="3.5s" repeatCount="indefinite" begin="1.5s"/>
+                        <animate attributeName="opacity" values="0;0.5;0" dur="3.5s" repeatCount="indefinite" begin="1.5s"/>
+                    </circle>
+                </svg>
+            </div>
+
+            <div class="hero-badge">✦ You're Cordially Invited ✦</div>
+            <h1 class="hero-title">
+                <span class="title-line farewell">Farewell</span>
+                <span class="title-line tea-party">Tea Party</span>
+            </h1>
+            <p class="hero-subtitle" id="typewriter"></p>
+            <div class="hero-school-name">T/KIN/AL-MINA MAHA VIDYALAYA</div>
+            <div class="hero-divider"></div>
+            <p class="hero-date-line">
+                <strong>27th July 2026</strong> · Monday · <strong>4:00 PM</strong>
+            </p>
+
+            <div class="hero-committee" id="heroCommittee">
+                <div class="com-label">✦ Organizing Committee ✦</div>
+                <div class="com-text">
+                    2k26 A/L BATCH STUDENTS
+                    <span>T/KIN/AL-MINA MAHA VIDYALAYA</span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ===== COUNTDOWN ===== -->
+    <section class="countdown-section" id="countdown">
+        <div class="section-bg-shimmer"></div>
+        <div class="section-orb gold" style="width: 250px; height: 250px; top: -10%; right: -5%; animation-delay: 0s;"></div>
+        <div class="section-orb emerald" style="width: 200px; height: 200px; bottom: -5%; left: -5%; animation-delay: -5s;"></div>
+        <div class="container" style="text-align: center;">
+            <span class="section-label"><span class="line left"></span> Counting Down <span class="line"></span></span>
+            <h2 class="section-title">Until We Meet</h2>
+            <div class="countdown-grid" id="countdown-grid">
+                <div class="countdown-item" data-reveal>
+                    <div class="glow-dot"></div>
+                    <span class="number" id="count-days">00</span>
+                    <span class="label">Days</span>
+                </div>
+                <div class="countdown-item" data-reveal>
+                    <div class="glow-dot"></div>
+                    <span class="number" id="count-hours">00</span>
+                    <span class="label">Hours</span>
+                </div>
+                <div class="countdown-item" data-reveal>
+                    <div class="glow-dot"></div>
+                    <span class="number" id="count-minutes">00</span>
+                    <span class="label">Minutes</span>
+                </div>
+                <div class="countdown-item" data-reveal>
+                    <div class="glow-dot"></div>
+                    <span class="number" id="count-seconds">00</span>
+                    <span class="label">Seconds</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EVENT DETAILS ===== -->
+    <section class="event-details" id="details">
+        <div class="section-bg-shimmer"></div>
+        <div class="section-orb amber" style="width: 200px; height: 200px; top: 20%; right: -8%; animation-delay: -3s;"></div>
+        <div class="section-orb gold" style="width: 180px; height: 180px; bottom: 10%; left: -5%; animation-delay: -8s;"></div>
+        <div class="container" style="text-align: center;">
+            <span class="section-label"><span class="line left"></span> Event Details <span class="line"></span></span>
+            <h2 class="section-title">Join Us for Tea</h2>
+
+            <div class="details-grid">
+                <div class="detail-card" data-reveal>
+                    <span class="detail-icon">📅</span>
+                    <h3>Date & Day</h3>
+                    <p><span class="highlight">27 July 2026</span><br><span class="sub-text">Monday</span></p>
+                </div>
+                <div class="detail-card" data-reveal>
+                    <span class="detail-icon">⏰</span>
+                    <h3>Time</h3>
+                    <p><span class="highlight">4:00 PM</span><br><span class="sub-text">An afternoon of warmth & memories</span></p>
+                </div>
+                <div class="detail-card" data-reveal>
+                    <span class="detail-icon">📍</span>
+                    <h3>Venue</h3>
+                    <p><span class="highlight">T/KIN/AL-MINA MAHA VIDYALAYA</span><br><span class="sub-text">School Premises</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MESSAGE SECTION ===== -->
+    <section class="message-section" id="message">
+        <div class="section-bg-shimmer"></div>
+        <div class="section-orb gold" style="width: 300px; height: 300px; top: -15%; left: -10%; animation-delay: -2s;"></div>
+        <div class="section-orb emerald" style="width: 180px; height: 180px; bottom: 5%; right: 5%; animation-delay: -10s;"></div>
+        <div class="container" style="text-align: center;">
+            <span class="section-label"><span class="line left"></span> A Note of Thanks <span class="line"></span></span>
+            <h2 class="section-title">From the Heart</h2>
+
+            <div class="message-card" data-reveal>
+                <div class="quote-mark top">"</div>
+                <div class="quote-mark bottom">"</div>
+                <p class="message-text">
+                    "As we turn the pages of our school journey and prepare for new adventures,<br>
+                    we invite our beloved teachers to join us for a cup of tea —<br>
+                    a small token of our immense gratitude for the wisdom, guidance,<br>
+                    and countless memories you've given us over the years.<br><br>
+                    Though we bid farewell to these halls,<br>
+                    the lessons you've taught us will echo in our hearts forever."
+                </p>
+                <div class="message-author">
+                    — With Love & Gratitude,<br>
+                    <span>A/L 2026 Batch · T/KIN/AL-MINA MAHA VIDYALAYA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TIMELINE ===== -->
+    <section class="timeline-section" id="journey">
+        <div class="section-bg-shimmer"></div>
+        <div class="section-orb emerald" style="width: 220px; height: 220px; top: 10%; right: -5%; animation-delay: -4s;"></div>
+        <div class="section-orb amber" style="width: 160px; height: 160px; bottom: 15%; left: -3%; animation-delay: -9s;"></div>
+        <div class="container" style="text-align: center;">
+            <span class="section-label"><span class="line left"></span> Our Journey <span class="line"></span></span>
+            <h2 class="section-title">School Years</h2>
+
+            <div class="timeline">
+                <div class="timeline-item" data-reveal>
+                    <div class="dot"></div>
+                    <div class="content">
+                        <span class="year">🎒 Grade 6</span>
+                        <p>The beginning — nervous smiles and new friendships</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-reveal>
+                    <div class="dot"></div>
+                    <div class="content">
+                        <span class="year">📖 Grade 8</span>
+                        <p>Growing together — lessons in and out of the classroom</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-reveal>
+                    <div class="dot"></div>
+                    <div class="content">
+                        <span class="year">🏆 GCE O/L</span>
+                        <p>Our first milestone — hard work, determination & success</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-reveal>
+                    <div class="dot"></div>
+                    <div class="content">
+                        <span class="year">🎓 GCE A/L</span>
+                        <p>The final chapter — late nights, endless lessons & dreams for tomorrow</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-reveal>
+                    <div class="dot"></div>
+                    <div class="content">
+                        <span class="year">☕ Farewell Tea</span>
+                        <p>One last gathering — to say thank you and goodbye</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GRATITUDE / TEACHERS ===== -->
+    <section class="gratitude-section" id="teachers">
+        <div class="section-bg-shimmer"></div>
+        <div class="section-orb gold" style="width: 280px; height: 280px; top: -5%; right: -8%; animation-delay: -1s;"></div>
+        <div class="section-orb amber" style="width: 200px; height: 200px; bottom: 0%; left: -5%; animation-delay: -7s;"></div>
+        <div class="container" style="text-align: center;">
+            <span class="section-label"><span class="line left"></span> Our Gratitude <span class="line"></span></span>
+            <h2 class="section-title">Thank You, Teachers</h2>
+
+            <div class="gratitude-grid">
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">👩‍🏫</span>
+                    <h4>To Every Teacher</h4>
+                    <p>For the knowledge you shared so patiently</p>
+                </div>
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">🌟</span>
+                    <h4>Our Principal</h4>
+                    <p>For your leadership, vision & guidance</p>
+                </div>
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">📝</span>
+                    <h4>Class Teachers</h4>
+                    <p>For shaping us into who we are today</p>
+                </div>
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">📚</span>
+                    <h4>Subject Teachers</h4>
+                    <p>For opening our minds to new worlds</p>
+                </div>
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">💝</span>
+                    <h4>Moral Guidance</h4>
+                    <p>For teaching us values that last a lifetime</p>
+                </div>
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">🤝</span>
+                    <h4>Support Staff</h4>
+                    <p>For your silent dedication & care</p>
+                </div>
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">📐</span>
+                    <h4>Mathematics</h4>
+                    <p>For making logic & numbers beautiful</p>
+                </div>
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">🔬</span>
+                    <h4>Science Teachers</h4>
+                    <p>For sparking curiosity & wonder</p>
+                </div>
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">🌍</span>
+                    <h4>Languages & Arts</h4>
+                    <p>For teaching us to express & create</p>
+                </div>
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">🏃</span>
+                    <h4>Sports & Culture</h4>
+                    <p>For the memories on the field & stage</p>
+                </div>
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">🙏</span>
+                    <h4>All Staff</h4>
+                    <p>For making school feel like a second home</p>
+                </div>
+                <div class="gratitude-card" data-reveal>
+                    <span class="emoji">💫</span>
+                    <h4>Forever Grateful</h4>
+                    <p>You will always be in our hearts</p>
+                </div>
+            </div>
+
+            <div class="thankyou-banner" data-reveal>
+                <h3>From the Bottom of Our Hearts...</h3>
+                <p>
+                    Every lesson you taught, every word of encouragement you gave,<br>
+                    and every moment you believed in us — we carry it all with us.<br><br>
+                    <em style="color: var(--gold); font-size: 1.1rem;">
+                        "Teachers plant seeds of knowledge that grow forever."
+                    </em>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer-section" id="rsvp">
+        <div class="section-bg-shimmer"></div>
+        <div class="section-orb gold" style="width: 200px; height: 200px; top: -20%; left: 50%; animation-delay: -5s;"></div>
+        <div class="container">
+            <div class="footer-content">
+                <p class="invitation-text">With Love &amp; Gratitude</p>
+                <p class="footer-text">
+                    We look forward to sharing this special evening with you.<br>
+                    Your presence will make this farewell truly unforgettable.
+                </p>
+                <div class="footer-details">
+                    <strong>📅 Monday, 27 July 2026</strong><br>
+                    <strong>⏰ 4:00 PM</strong><br>
+                    <strong>📍 T/KIN/AL-MINA MAHA VIDYALAYA</strong>
+                </div>
+                <div class="footer-divider"></div>
+                <p class="footer-credit">
+                    T/KIN/AL-MINA MAHA VIDYALAYA · A/L 2026 Batch
+                </p>
+
+                <div class="author-credit">
+                    <div class="author-credit-logo">
+                        <img src="author-logo.png" alt="Zai Creations">
+                    </div>
+                    <div class="author-credit-text">
+                        <strong>Ruzaith (Zai)</strong>
+                        <span>Founder, Zai Creations · Creator, Zai Education Hub</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== HERO ANIMATED BACKGROUND (rich JS-driven canvas) =====
+        (function initHeroBg() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const hero = document.querySelector('.hero');
+            let W, H;
+
+            function resize() {
+                const rect = hero.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                W = canvas.width;
+                H = canvas.height;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            // === FLOATING GOLDEN RINGS ===
+            class GoldenRing {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * W;
+                    this.y = Math.random() * H;
+                    this.radius = Math.random() * 60 + 20;
+                    this.lineWidth = Math.random() * 1.5 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = -Math.random() * 0.2 - 0.1;
+                    this.rotation = Math.random() * Math.PI * 2;
+                    this.rotSpeed = (Math.random() - 0.5) * 0.005;
+                    this.opacity = Math.random() * 0.15 + 0.05;
+                    this.pulseSpeed = Math.random() * 0.02 + 0.01;
+                    this.pulsePhase = Math.random() * Math.PI * 2;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.rotation += this.rotSpeed;
+                    if (this.y + this.radius < -50) {
+                        this.y = H + 50;
+                        this.x = Math.random() * W;
+                    }
+                    if (this.x < -100) this.x = W + 100;
+                    if (this.x > W + 100) this.x = -100;
+                }
+                draw(time) {
+                    const pulse = Math.sin(time * this.pulseSpeed + this.pulsePhase) * 0.5 + 0.5;
+                    const o = this.opacity * (0.5 + pulse * 0.5);
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation);
+                    ctx.strokeStyle = `rgba(212, 175, 55, ${o})`;
+                    ctx.lineWidth = this.lineWidth;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                    // Inner ring
+                    ctx.strokeStyle = `rgba(240, 208, 96, ${o * 0.5})`;
+                    ctx.lineWidth = this.lineWidth * 0.5;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.radius * 0.7, 0, Math.PI * 2);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+
+            // === SPARKLE PARTICLES ===
+            class Sparkle {
+                constructor() { this.reset(true); }
+                reset(init = false) {
+                    this.x = Math.random() * W;
+                    this.y = init ? Math.random() * H : H + 20;
+                    this.size = Math.random() * 2 + 1;
+                    this.speedY = -(Math.random() * 0.8 + 0.2);
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.6 + 0.2;
+                    this.life = 0;
+                    this.maxLife = Math.random() * 300 + 200;
+                    this.flicker = Math.random() * Math.PI * 2;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.life++;
+                    this.flicker += 0.1;
+                    if (this.life > this.maxLife || this.y < -20) this.reset();
+                }
+                draw(time) {
+                    const flicker = Math.sin(this.flicker) * 0.3 + 0.7;
+                    const fade = this.life < 50 ? this.life / 50 : (this.life > this.maxLife - 50 ? (this.maxLife - this.life) / 50 : 1);
+                    const o = this.opacity * flicker * fade;
+                    ctx.fillStyle = `rgba(255, 215, 100, ${o})`;
+                    ctx.beginPath();
+                    // Cross sparkle
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = `rgba(255, 215, 100, ${o * 0.3})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // === SHOOTING STARS ===
+            class ShootingStar {
+                constructor() { this.active = false; this.timer = 0; }
+                trigger() {
+                    this.active = true;
+                    this.x = Math.random() * W * 0.8 + W * 0.1;
+                    this.y = Math.random() * H * 0.3;
+                    this.length = Math.random() * 80 + 40;
+                    this.speed = Math.random() * 8 + 5;
+                    this.angle = Math.PI * 0.25 + Math.random() * 0.3;
+                    this.opacity = Math.random() * 0.6 + 0.3;
+                    this.trail = [];
+                }
+                update() {
+                    if (!this.active) {
+                        this.timer++;
+                        if (this.timer > Math.random() * 200 + 100) this.trigger();
+                        return;
+                    }
+                    this.x += Math.cos(this.angle) * this.speed;
+                    this.y += Math.sin(this.angle) * this.speed;
+                    this.trail.push({ x: this.x, y: this.y });
+                    if (this.trail.length > 15) this.trail.shift();
+                    if (this.x > W + 50 || this.y > H * 0.8) {
+                        this.active = false;
+                        this.timer = 0;
+                    }
+                }
+                draw() {
+                    if (!this.active || this.trail.length < 2) return;
+                    // Trail
+                    for (let i = 1; i < this.trail.length; i++) {
+                        const p = i / this.trail.length;
+                        ctx.strokeStyle = `rgba(255, 215, 100, ${p * this.opacity * 0.6})`;
+                        ctx.lineWidth = p * 2;
+                        ctx.beginPath();
+                        ctx.moveTo(this.trail[i - 1].x, this.trail[i - 1].y);
+                        ctx.lineTo(this.trail[i].x, this.trail[i].y);
+                        ctx.stroke();
+                    }
+                    // Head
+                    const head = this.trail[this.trail.length - 1];
+                    const glow = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 8);
+                    glow.addColorStop(0, `rgba(255, 235, 150, ${this.opacity})`);
+                    glow.addColorStop(0.5, `rgba(255, 215, 100, ${this.opacity * 0.5})`);
+                    glow.addColorStop(1, 'rgba(255, 215, 100, 0)');
+                    ctx.fillStyle = glow;
+                    ctx.beginPath();
+                    ctx.arc(head.x, head.y, 8, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // === FLOATING ORBS ===
+            class Orb {
+                constructor() {
+                    this.x = Math.random() * W;
+                    this.y = Math.random() * H;
+                    this.baseX = this.x;
+                    this.baseY = this.y;
+                    this.radius = Math.random() * 30 + 15;
+                    this.amplitudeX = Math.random() * 40 + 20;
+                    this.amplitudeY = Math.random() * 40 + 20;
+                    this.freqX = Math.random() * 0.002 + 0.001;
+                    this.freqY = Math.random() * 0.002 + 0.001;
+                    this.phaseX = Math.random() * Math.PI * 2;
+                    this.phaseY = Math.random() * Math.PI * 2;
+                    this.opacity = Math.random() * 0.06 + 0.02;
+                    this.color = ['rgba(212,175,55,', 'rgba(46,204,113,', 'rgba(243,156,18,'][Math.floor(Math.random() * 3)];
+                }
+                update(time) {
+                    this.x = this.baseX + Math.sin(time * this.freqX + this.phaseX) * this.amplitudeX;
+                    this.y = this.baseY + Math.sin(time * this.freqY + this.phaseY) * this.amplitudeY;
+                }
+                draw() {
+                    const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+                    grad.addColorStop(0, `${this.color}${this.opacity})`);
+                    grad.addColorStop(1, `${this.color}0)`);
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // === INIT ===
+            const rings = [];
+            for (let i = 0; i < 8; i++) rings.push(new GoldenRing());
+
+            const sparkles = [];
+            for (let i = 0; i < 50; i++) sparkles.push(new Sparkle());
+
+            const orbs = [];
+            for (let i = 0; i < 6; i++) orbs.push(new Orb());
+
+            const shootingStar = new ShootingStar();
+
+            let startTime = Date.now();
+
+            function animate() {
+                const now = Date.now();
+                const elapsed = now - startTime;
+                const heroRect = hero.getBoundingClientRect();
+
+                // Only draw if hero is visible
+                if (heroRect.top < window.innerHeight && heroRect.bottom > 0) {
+                    ctx.clearRect(0, 0, W, H);
+
+                    // Draw dark subtle vignette
+                    const vigGrad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H) * 0.7);
+                    vigGrad.addColorStop(0, 'rgba(10,10,18,0)');
+                    vigGrad.addColorStop(1, 'rgba(7,7,13,0.4)');
+                    ctx.fillStyle = vigGrad;
+                    ctx.fillRect(0, 0, W, H);
+
+                    orbs.forEach(o => { o.update(elapsed); o.draw(); });
+                    rings.forEach(r => { r.update(); r.draw(elapsed); });
+                    sparkles.forEach(s => { s.update(); s.draw(elapsed); });
+                    shootingStar.update();
+                    shootingStar.draw();
+                }
+
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // ===== TYPEWRITER EFFECT =====
+        (function() {
+            const el = document.getElementById('typewriter');
+            if (!el) return;
+            const text = '"A celebration of gratitude, memories & new beginnings"';
+            let i = 0;
+            el.innerHTML = '<span></span><span class="cursor-blink"></span>';
+            const span = el.querySelector('span');
+            function type() {
+                if (i < text.length) {
+                    span.textContent += text.charAt(i);
+                    i++;
+                    const delay = text.charAt(i - 1) === '.' || text.charAt(i - 1) === ',' ? 100 : 40;
+                    setTimeout(type, delay);
+                }
+            }
+            setTimeout(type, 2200);
+        })();
+
+        // ===== CUSTOM CURSOR =====
+        (function() {
+            const cursor = document.getElementById('cursor');
+            const cursorInner = document.getElementById('cursorInner');
+            if (!cursor || !cursorInner) return;
+            let mx = 0, my = 0, cx = 0, cy = 0, ix = 0, iy = 0;
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+            function update() {
+                cx += (mx - cx) * 0.12;
+                cy += (my - cy) * 0.12;
+                ix += (mx - ix) * 0.2;
+                iy += (my - iy) * 0.2;
+                cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+                cursorInner.style.transform = `translate(${ix}px, ${iy}px) translate(-50%, -50%)`;
+                requestAnimationFrame(update);
+            }
+            update();
+            document.querySelectorAll('a, button, .detail-card, .gratitude-card, .countdown-item, .timeline-item').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+        })();
+
+        // ===== GLOBAL PARTICLES =====
+        (function() {
+            const canvas = document.getElementById('particles-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = { x: null, y: null, radius: 150 };
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+            document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                    this.y = Math.random() * canvas.height;
+                }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = -10;
+                    this.size = Math.random() * 2.5 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.2;
+                    this.speedY = Math.random() * 0.3 + 0.1;
+                    this.opacity = Math.random() * 0.3 + 0.08;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (mouse.x !== null) {
+                        const dx = mouse.x - this.x;
+                        const dy = mouse.y - this.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < mouse.radius) {
+                            const force = (mouse.radius - dist) / mouse.radius;
+                            this.x -= (dx / dist || 0) * force * 1.5;
+                            this.y -= (dy / dist || 0) * force * 1.5;
+                        }
+                    }
+                    if (this.y > canvas.height + 10 || this.x < -10 || this.x > canvas.width + 10) this.reset();
+                }
+                draw() {
+                    ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            const count = Math.min(Math.floor(canvas.width * canvas.height / 20000), 50);
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+
+            function connect() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 100) {
+                            ctx.strokeStyle = `rgba(212, 175, 55, ${(1 - dist / 100) * 0.08})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                connect();
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // ===== TITLE LETTER-BY-LETTER REVEAL =====
+        (function() {
+            const lines = document.querySelectorAll('.title-line');
+            if (!lines.length) return;
+            lines.forEach((line, lineIdx) => {
+                const text = line.textContent;
+                line.textContent = '';
+                const chars = text.split('');
+                chars.forEach((ch, i) => {
+                    const span = document.createElement('span');
+                    span.className = ch === ' ' ? 'title-char title-space' : 'title-char';
+                    span.textContent = ch;
+                    const delay = 0.5 + lineIdx * 0.2 + i * 0.03;
+                    span.style.transition = `all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s`;
+                    line.appendChild(span);
+                });
+            });
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    document.querySelectorAll('.title-char').forEach(el => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0) rotateX(0)';
+                    });
+                });
+            });
+        })();
+
+        // ===== HERO ELEMENTS STAGGERED REVEAL =====
+        (function() {
+            const badge = document.querySelector('.hero-badge');
+            const school = document.querySelector('.hero-school-name');
+            const divider = document.querySelector('.hero-divider');
+            const dateLine = document.querySelector('.hero-date-line');
+            if (badge) {
+                setTimeout(() => {
+                    badge.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    badge.style.opacity = '1';
+                }, 300);
+            }
+            if (school) {
+                setTimeout(() => {
+                    school.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    school.style.opacity = '1';
+                    school.style.transform = 'translateY(0)';
+                }, 1200);
+            }
+            if (divider) {
+                setTimeout(() => {
+                    divider.style.transition = 'all 0.6s ease';
+                    divider.style.opacity = '1';
+                }, 1600);
+            }
+            if (dateLine) {
+                setTimeout(() => {
+                    dateLine.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    dateLine.style.opacity = '1';
+                }, 1800);
+            }
+            const committee = document.getElementById('heroCommittee');
+            if (committee) {
+                setTimeout(() => {
+                    committee.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    committee.style.opacity = '1';
+                    committee.style.transform = 'translateY(0)';
+                }, 2100);
+            }
+        })();
+
+        // ===== COUNTDOWN TIMER =====
+        (function() {
+            const eventDate = new Date('2026-07-27T16:00:00+05:30').getTime();
+            const daysEl = document.getElementById('count-days');
+            const hoursEl = document.getElementById('count-hours');
+            const minsEl = document.getElementById('count-minutes');
+            const secsEl = document.getElementById('count-seconds');
+
+            function updateCountdown() {
+                const now = Date.now();
+                const diff = Math.max(0, eventDate - now);
+                if (daysEl) daysEl.textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+                if (hoursEl) hoursEl.textContent = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+                if (minsEl) minsEl.textContent = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                if (secsEl) secsEl.textContent = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        })();
+
+        // ===== SCROLL REVEAL =====
+        (function() {
+            const els = document.querySelectorAll('[data-reveal]');
+            if (!els.length) return;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            els.forEach(el => observer.observe(el));
+        })();
+
+        // ===== SMOOTH SCROLL WITH CUSTOM EASING =====
+        (function() {
+            if ('scrollBehavior' in document.documentElement.style) {
+                document.documentElement.style.scrollBehavior = 'smooth';
+                return;
+            }
+            // Polyfill for older browsers: smooth scroll with easing
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (!target) return;
+                    const start = window.scrollY;
+                    const end = target.getBoundingClientRect().top + window.scrollY - 60;
+                    const duration = 1000;
+                    let startTime = null;
+                    function ease(t) { return t < 0.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1; }
+                    function scroll(currentTime) {
+                        if (!startTime) startTime = currentTime;
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        window.scrollTo(0, start + (end - start) * ease(progress));
+                        if (progress < 1) requestAnimationFrame(scroll);
+                    }
+                    requestAnimationFrame(scroll);
+                });
+            });
+        })();
+
+        // ===== PARALLAX HERO =====
+        (function() {
+            const hero = document.querySelector('.hero');
+            if (!hero) return;
+            window.addEventListener('scroll', () => {
+                const sy = window.scrollY;
+                if (sy < window.innerHeight) {
+                    hero.style.transform = `translateY(${sy * 0.1}px)`;
+                }
+            }, { passive: true });
+        })();
+
+        // ===== SECTION PARALLAX (subtle depth on scroll) =====
+        (function() {
+            const sections = document.querySelectorAll('section:not(.hero)');
+            if (!sections.length) return;
+            window.addEventListener('scroll', () => {
+                const sy = window.scrollY;
+                sections.forEach((section, i) => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        const offset = (rect.top - window.innerHeight * 0.3) * -0.03;
+                        const bgShimmer = section.querySelector('.section-bg-shimmer');
+                        if (bgShimmer) {
+                            bgShimmer.style.transform = `translateY(${offset}px)`;
+                        }
+                    }
+                });
+            }, { passive: true });
+        })();
+
+        // ===== 3D TILT ON CARDS (detail cards hover) =====
+        (function() {
+            const cards = document.querySelectorAll('.detail-card, .gratitude-card');
+            if (!cards.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            cards.forEach(card => {
+                let ticking = false;
+                card.addEventListener('mousemove', e => {
+                    if (ticking) return;
+                    ticking = true;
+                    requestAnimationFrame(() => {
+                        const rect = card.getBoundingClientRect();
+                        const x = (e.clientX - rect.left) / rect.width - 0.5;
+                        const y = (e.clientY - rect.top) / rect.height - 0.5;
+                        card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${y * -6}deg) translateY(-8px) scale(1.02)`;
+                        ticking = false;
+                    });
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+        })();
+
+        // ===== SCROLL PROGRESS BAR =====
+        (function() {
+            const bar = document.createElement('div');
+            bar.style.cssText = 'position:fixed;top:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));z-index:10000;transition:width 0.1s ease;';
+            document.body.appendChild(bar);
+            window.addEventListener('scroll', () => {
+                const h = document.documentElement.scrollHeight - window.innerHeight;
+                bar.style.width = `${(window.scrollY / h) * 100}%`;
+            }, { passive: true });
+        })();
+
+        // ===== SMOOTH WHEEL SCROLL (enhanced smooth feel) =====
+        (function() {
+            const body = document.body;
+            let isScrolling = false;
+            let targetScroll = window.scrollY;
+            let currentScroll = window.scrollY;
+
+            window.addEventListener('wheel', e => {
+                if (e.deltaY === 0) return;
+                e.preventDefault();
+                targetScroll += e.deltaY * 0.8;
+                targetScroll = Math.max(0, Math.min(targetScroll, document.documentElement.scrollHeight - window.innerHeight));
+                if (!isScrolling) {
+                    isScrolling = true;
+                    function smoothScroll() {
+                        currentScroll += (targetScroll - currentScroll) * 0.12;
+                        if (Math.abs(targetScroll - currentScroll) < 0.5) {
+                            currentScroll = targetScroll;
+                            isScrolling = false;
+                            return;
+                        }
+                        window.scrollTo(0, currentScroll);
+                        requestAnimationFrame(smoothScroll);
+                    }
+                    smoothScroll();
+                }
+            }, { passive: false });
+        })();
+
+        // ===== COFFEE CUP GENTLE FLOAT + 3D TILT =====
+        (function() {
+            const cup = document.querySelector('.coffee-cup-logo');
+            if (!cup) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            let mouseX = 0.5, mouseY = 0.5;
+            document.addEventListener('mousemove', e => {
+                mouseX = e.clientX / window.innerWidth;
+                mouseY = e.clientY / window.innerHeight;
+            });
+
+            function frame() {
+                const time = Date.now() / 2000;
+                const tiltX = (mouseX - 0.5) * 15;
+                const tiltY = (mouseY - 0.5) * -15;
+                const yFloat = Math.sin(time) * 3;
+                cup.style.transform = `perspective(600px) rotateX(${tiltY}deg) rotateY(${tiltX}deg) translateY(${yFloat}px)`;
+                requestAnimationFrame(frame);
+            }
+            frame();
+        })();
+
+        console.log('%c☕ Farewell Tea Party Invitation', 'color: #D4AF37; font-size: 22px; font-weight: bold;');
+        console.log('%cT/KIN/AL-MINA MAHA VIDYALAYA · 27 July 2026 · 4:00 PM', 'color: #F0D060; font-size: 13px;');
+    </script>
+</body>
+</html>
