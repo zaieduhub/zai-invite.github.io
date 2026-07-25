@@ -395,10 +395,28 @@
             display: inline-block;
             opacity: 0;
             transform: translateY(60px) rotateX(-40deg);
+            background: inherit;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .title-line .title-space {
             display: inline-block;
             width: 0.3em;
+            background: inherit;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Ensure gradient background propagates from hero-title to title-char spans */
+        .hero-title .title-char {
+            background: inherit;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .title-line.tea-party .title-char {
+            animation: shimmerText 4s ease-in-out infinite 1s;
         }
 
         .hero-subtitle {
@@ -433,15 +451,46 @@
         }
 
         .hero-date-line {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-            color: var(--text-muted);
-            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
             opacity: 0;
+            margin-top: 5px;
         }
-        .hero-date-line strong {
+        .date-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .date-item .date-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.55rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+        .date-item .date-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 1.6vw, 1.3rem);
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+        }
+        .date-item .date-value strong {
             color: var(--gold-light);
             font-weight: 600;
+        }
+        .hero-date-line .date-sep {
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0.3;
+            margin-top: 12px;
+            flex-shrink: 0;
         }
 
         .hero-divider {
@@ -980,6 +1029,52 @@
             letter-spacing: 0.5px;
         }
 
+        /* ===== BUTTERFLY ANIMATION ===== */
+        .butterfly {
+            position: fixed;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0;
+            will-change: transform;
+        }
+        .butterfly svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        .butterfly .wing-l {
+            transform-origin: 28px 22px;
+            animation: flapL 0.3s ease-in-out infinite alternate;
+        }
+        .butterfly .wing-r {
+            transform-origin: 72px 22px;
+            animation: flapR 0.3s ease-in-out infinite alternate;
+        }
+
+        @keyframes flapL {
+            0% { transform: scaleY(0.3) skewY(8deg); }
+            100% { transform: scaleY(1) skewY(0deg); }
+        }
+        @keyframes flapR {
+            0% { transform: scaleY(0.3) skewY(-8deg); }
+            100% { transform: scaleY(1) skewY(0deg); }
+        }
+        .butterfly .body-glow {
+            animation: bodyPulse 2s ease-in-out infinite alternate;
+        }
+        @keyframes bodyPulse {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.9; }
+        }
+        .butterfly .wing-shimmer {
+            animation: shimmerWing 3s ease-in-out infinite alternate;
+        }
+        @keyframes shimmerWing {
+            0% { opacity: 0.6; filter: brightness(0.8); }
+            100% { opacity: 1; filter: brightness(1.3); }
+        }
+
         /* ===== FLOATING REVEAL ANIMATION (scroll elements float in) ===== */
         @keyframes floatReveal {
             0% {
@@ -1049,7 +1144,8 @@
                 filter: none !important;
             }
             .cursor, .cursor-inner { display: none !important; }
-            .section-bg-shimmer, .section-orb, .hero-particles, .steam-ring, .coffee-cup-glow {
+            .section-bg-shimmer, .section-orb, .hero-particles, .steam-ring, .coffee-cup-glow,
+            .butterfly {
                 display: none !important;
             }
         }
@@ -1186,9 +1282,22 @@
             <p class="hero-subtitle" id="typewriter"></p>
             <div class="hero-school-name">T/KIN/AL-MINA MAHA VIDYALAYA</div>
             <div class="hero-divider"></div>
-            <p class="hero-date-line">
-                <strong>27th July 2026</strong> · Monday · <strong>4:00 PM</strong>
-            </p>
+            <div class="hero-date-line">
+                <div class="date-item">
+                    <span class="date-label">Date</span>
+                    <span class="date-value"><strong>27 July 2026</strong></span>
+                </div>
+                <div class="date-sep"></div>
+                <div class="date-item">
+                    <span class="date-label">Day</span>
+                    <span class="date-value">Monday</span>
+                </div>
+                <div class="date-sep"></div>
+                <div class="date-item">
+                    <span class="date-label">Time</span>
+                    <span class="date-value"><strong>4:00 PM</strong></span>
+                </div>
+            </div>
 
             <div class="hero-committee" id="heroCommittee">
                 <div class="com-label">✦ Organizing Committee ✦</div>
@@ -2021,30 +2130,33 @@
             // Only enable on desktop with physical mouse
             if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-            let isScrolling = false;
-            let targetScroll = window.scrollY;
-            let currentScroll = window.scrollY;
+    let isScrolling = false;
+    let targetScroll = window.scrollY;
+    let currentScroll = window.scrollY;
 
-            window.addEventListener('wheel', e => {
-                if (e.deltaY === 0) return;
-                e.preventDefault();
-                targetScroll += e.deltaY * 1.0;
-                targetScroll = Math.max(0, Math.min(targetScroll, document.documentElement.scrollHeight - window.innerHeight));
-                if (!isScrolling) {
-                    isScrolling = true;
-                    function smoothScroll() {
-                        currentScroll += (targetScroll - currentScroll) * 0.15;
-                        if (Math.abs(targetScroll - currentScroll) < 0.5) {
-                            currentScroll = targetScroll;
-                            isScrolling = false;
-                            return;
-                        }
-                        window.scrollTo(0, currentScroll);
-                        requestAnimationFrame(smoothScroll);
-                    }
-                    smoothScroll();
+    window.addEventListener('wheel', e => {
+        if (e.deltaY === 0) return;
+        e.preventDefault();
+        // Accumulate scroll with smooth falloff
+        targetScroll += e.deltaY * 0.7;
+        targetScroll = Math.max(0, Math.min(targetScroll, document.documentElement.scrollHeight - window.innerHeight));
+        if (!isScrolling) {
+            isScrolling = true;
+            function smoothScroll() {
+                const diff = targetScroll - currentScroll;
+                // Use a smaller lerp for buttery smooth feel
+                currentScroll += diff * 0.1;
+                if (Math.abs(diff) < 0.3) {
+                    currentScroll = targetScroll;
+                    isScrolling = false;
+                    return;
                 }
-            }, { passive: false });
+                window.scrollTo(0, Math.round(currentScroll * 100) / 100);
+                requestAnimationFrame(smoothScroll);
+            }
+            smoothScroll();
+        }
+    }, { passive: false });
         })();
 
         // ===== COFFEE CUP GENTLE FLOAT + 3D TILT =====
@@ -2072,6 +2184,398 @@
 
         console.log('%c☕ Farewell Tea Party Invitation', 'color: #D4AF37; font-size: 22px; font-weight: bold;');
         console.log('%cT/KIN/AL-MINA MAHA VIDYALAYA · 27 July 2026 · 4:00 PM', 'color: #F0D060; font-size: 13px;');
+    // ===== BUTTERFLY FLIGHT ANIMATION =====
+    (function() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const butterflyCount = 5;
+        const butterflies = [];
+        const container = document.body;
+
+        // Elegant golden butterfly SVG
+        function createButterflySVG(size) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('viewBox', '0 0 100 80');
+            svg.setAttribute('width', size);
+            svg.setAttribute('height', size * 0.8);
+
+            // Defs for gradients
+            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+
+            // Upper wing gradient
+            const grad1 = document.createElementNS('http://www.w3.org/2000/svg', 'radialGradient');
+            grad1.setAttribute('id', `wingGrad1_${Math.random().toString(36).slice(2)}`);
+            grad1.setAttribute('cx', '50%'); grad1.setAttribute('cy', '50%'); grad1.setAttribute('r', '60%');
+            const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            stop1.setAttribute('offset', '0%'); stop1.setAttribute('stop-color', '#F0D060');
+            stop1.setAttribute('stop-opacity', '0.9');
+            const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            stop2.setAttribute('offset', '60%'); stop2.setAttribute('stop-color', '#D4AF37');
+            stop2.setAttribute('stop-opacity', '0.7');
+            const stop3 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            stop3.setAttribute('offset', '100%'); stop3.setAttribute('stop-color', '#B8962E');
+            stop3.setAttribute('stop-opacity', '0.3');
+            grad1.appendChild(stop1); grad1.appendChild(stop2); grad1.appendChild(stop3);
+            defs.appendChild(grad1);
+
+            // Lower wing gradient
+            const grad2 = document.createElementNS('http://www.w3.org/2000/svg', 'radialGradient');
+            grad2.setAttribute('id', `wingGrad2_${Math.random().toString(36).slice(2)}`);
+            grad2.setAttribute('cx', '50%'); grad2.setAttribute('cy', '50%'); grad2.setAttribute('r', '60%');
+            const s1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            s1.setAttribute('offset', '0%'); s1.setAttribute('stop-color', '#E8C84A');
+            s1.setAttribute('stop-opacity', '0.8');
+            const s2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            s2.setAttribute('offset', '100%'); s2.setAttribute('stop-color', '#A67C1E');
+            s2.setAttribute('stop-opacity', '0.15');
+            grad2.appendChild(s1); grad2.appendChild(s2);
+            defs.appendChild(grad2);
+
+            // Wing shimmer gradient
+            const grad3 = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+            grad3.setAttribute('id', `shimmerGrad_${Math.random().toString(36).slice(2)}`);
+            grad3.setAttribute('x1', '0%'); grad3.setAttribute('y1', '0%');
+            grad3.setAttribute('x2', '100%'); grad3.setAttribute('y2', '100%');
+            const ss1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            ss1.setAttribute('offset', '0%'); ss1.setAttribute('stop-color', '#FFFFFF');
+            ss1.setAttribute('stop-opacity', '0.3');
+            const ss2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            ss2.setAttribute('offset', '50%'); ss2.setAttribute('stop-color', '#F0D060');
+            ss2.setAttribute('stop-opacity', '0');
+            const ss3 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            ss3.setAttribute('offset', '100%'); ss3.setAttribute('stop-color', '#FFFFFF');
+            ss3.setAttribute('stop-opacity', '0.15');
+            grad3.appendChild(ss1); grad3.appendChild(ss2); grad3.appendChild(ss3);
+            defs.appendChild(grad3);
+
+            svg.appendChild(defs);
+
+            const gradId1 = grad1.getAttribute('id');
+            const gradId2 = grad2.getAttribute('id');
+            const shimmerId = grad3.getAttribute('id');
+
+            // === LEFT WING GROUP (upper + lower) ===
+            const gL = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            gL.setAttribute('class', 'wing-l');
+
+            // Upper left wing
+            const pathUL = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            pathUL.setAttribute('d', 'M50 22 C45 10 25 2 12 8 C5 12 4 22 15 28 C22 32 35 34 50 30 Z');
+            pathUL.setAttribute('fill', `url(#${gradId1})`);
+            pathUL.setAttribute('stroke', 'rgba(240,208,96,0.4)');
+            pathUL.setAttribute('stroke-width', '0.5');
+            gL.appendChild(pathUL);
+
+            // Upper left wing shimmer overlay
+            const shimmerUL = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            shimmerUL.setAttribute('class', 'wing-shimmer');
+            shimmerUL.setAttribute('d', 'M50 22 C45 10 25 2 12 8 C5 12 4 22 15 28 C22 32 35 34 50 30 Z');
+            shimmerUL.setAttribute('fill', `url(#${shimmerId})`);
+            gL.appendChild(shimmerUL);
+
+            // Upper left wing vein
+            const veinUL = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            veinUL.setAttribute('d', 'M50 22 C40 18 28 14 15 12');
+            veinUL.setAttribute('fill', 'none');
+            veinUL.setAttribute('stroke', 'rgba(255,255,255,0.12)');
+            veinUL.setAttribute('stroke-width', '0.8');
+            gL.appendChild(veinUL);
+
+            // Lower left wing
+            const pathLL = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            pathLL.setAttribute('d', 'M50 30 C42 36 30 42 22 48 C16 52 18 58 26 56 C35 54 48 44 50 36 Z');
+            pathLL.setAttribute('fill', `url(#${gradId2})`);
+            pathLL.setAttribute('stroke', 'rgba(240,208,96,0.3)');
+            pathLL.setAttribute('stroke-width', '0.5');
+            gL.appendChild(pathLL);
+
+            // Lower left wing shimmer
+            const shimmerLL = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            shimmerLL.setAttribute('class', 'wing-shimmer');
+            shimmerLL.setAttribute('d', 'M50 30 C42 36 30 42 22 48 C16 52 18 58 26 56 C35 54 48 44 50 36 Z');
+            shimmerLL.setAttribute('fill', `url(#${shimmerId})`);
+            gL.appendChild(shimmerLL);
+
+            svg.appendChild(gL);
+
+            // === RIGHT WING GROUP (upper + lower) ===
+            const gR = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            gR.setAttribute('class', 'wing-r');
+
+            // Upper right wing
+            const pathUR = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            pathUR.setAttribute('d', 'M50 22 C55 10 75 2 88 8 C95 12 96 22 85 28 C78 32 65 34 50 30 Z');
+            pathUR.setAttribute('fill', `url(#${gradId1})`);
+            pathUR.setAttribute('stroke', 'rgba(240,208,96,0.4)');
+            pathUR.setAttribute('stroke-width', '0.5');
+            gR.appendChild(pathUR);
+
+            // Upper right wing shimmer
+            const shimmerUR = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            shimmerUR.setAttribute('class', 'wing-shimmer');
+            shimmerUR.setAttribute('d', 'M50 22 C55 10 75 2 88 8 C95 12 96 22 85 28 C78 32 65 34 50 30 Z');
+            shimmerUR.setAttribute('fill', `url(#${shimmerId})`);
+            gR.appendChild(shimmerUR);
+
+            // Upper right wing vein
+            const veinUR = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            veinUR.setAttribute('d', 'M50 22 C60 18 72 14 85 12');
+            veinUR.setAttribute('fill', 'none');
+            veinUR.setAttribute('stroke', 'rgba(255,255,255,0.12)');
+            veinUR.setAttribute('stroke-width', '0.8');
+            gR.appendChild(veinUR);
+
+            // Lower right wing
+            const pathLR = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            pathLR.setAttribute('d', 'M50 30 C58 36 70 42 78 48 C84 52 82 58 74 56 C65 54 52 44 50 36 Z');
+            pathLR.setAttribute('fill', `url(#${gradId2})`);
+            pathLR.setAttribute('stroke', 'rgba(240,208,96,0.3)');
+            pathLR.setAttribute('stroke-width', '0.5');
+            gR.appendChild(pathLR);
+
+            // Lower right wing shimmer
+            const shimmerLR = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            shimmerLR.setAttribute('class', 'wing-shimmer');
+            shimmerLR.setAttribute('d', 'M50 30 C58 36 70 42 78 48 C84 52 82 58 74 56 C65 54 52 44 50 36 Z');
+            shimmerLR.setAttribute('fill', `url(#${shimmerId})`);
+            gR.appendChild(shimmerLR);
+
+            svg.appendChild(gR);
+
+            // === BUTTERFLY BODY ===
+            // Body glow
+            const glow = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+            glow.setAttribute('class', 'body-glow');
+            glow.setAttribute('cx', '50'); glow.setAttribute('cy', '30');
+            glow.setAttribute('rx', '12'); glow.setAttribute('ry', '18');
+            glow.setAttribute('fill', 'rgba(240,208,96,0.08)');
+            svg.appendChild(glow);
+
+            // Body (abdomen)
+            const body = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+            body.setAttribute('cx', '50'); body.setAttribute('cy', '32');
+            body.setAttribute('rx', '2.5'); body.setAttribute('ry', '14');
+            body.setAttribute('fill', '#C8A030');
+            body.setAttribute('stroke', 'rgba(240,208,96,0.5)');
+            body.setAttribute('stroke-width', '0.5');
+            svg.appendChild(body);
+
+            // Thorax
+            const thorax = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            thorax.setAttribute('cx', '50'); thorax.setAttribute('cy', '20');
+            thorax.setAttribute('r', '3');
+            thorax.setAttribute('fill', '#D4AF37');
+            svg.appendChild(thorax);
+
+            // Head
+            const head = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            head.setAttribute('cx', '50'); head.setAttribute('cy', '15');
+            head.setAttribute('r', '2');
+            head.setAttribute('fill', '#F0D060');
+            svg.appendChild(head);
+
+            // Antennae
+            const antL = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            antL.setAttribute('d', 'M49 14 C45 8 40 4 38 2');
+            antL.setAttribute('fill', 'none');
+            antL.setAttribute('stroke', '#D4AF37');
+            antL.setAttribute('stroke-width', '0.6');
+            antL.setAttribute('stroke-linecap', 'round');
+            svg.appendChild(antL);
+
+            const antR = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            antR.setAttribute('d', 'M51 14 C55 8 60 4 62 2');
+            antR.setAttribute('fill', 'none');
+            antR.setAttribute('stroke', '#D4AF37');
+            antR.setAttribute('stroke-width', '0.6');
+            antR.setAttribute('stroke-linecap', 'round');
+            svg.appendChild(antR);
+
+            // Antennae tips (dots)
+            const tipL = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            tipL.setAttribute('cx', '38'); tipL.setAttribute('cy', '2');
+            tipL.setAttribute('r', '0.8');
+            tipL.setAttribute('fill', '#F0D060');
+            svg.appendChild(tipL);
+
+            const tipR = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            tipR.setAttribute('cx', '62'); tipR.setAttribute('cy', '2');
+            tipR.setAttribute('r', '0.8');
+            tipR.setAttribute('fill', '#F0D060');
+            svg.appendChild(tipR);
+
+            return svg;
+        }
+
+        // Create butterflies
+        for (let i = 0; i < butterflyCount; i++) {
+            const size = 24 + Math.random() * 20; // 24-44px
+            const el = document.createElement('div');
+            el.className = 'butterfly';
+
+            const svg = createButterflySVG(size);
+            el.appendChild(svg);
+
+            // Set varied wing-flap duration for each butterfly
+            const flapDur = (0.22 + Math.random() * 0.18).toFixed(2);
+            const wingL = svg.querySelector('.wing-l');
+            const wingR = svg.querySelector('.wing-r');
+            if (wingL) wingL.style.animationDuration = flapDur + 's';
+            if (wingR) wingR.style.animationDuration = flapDur + 's';
+
+            // Random starting position (off-screen edges)
+            const edge = Math.floor(Math.random() * 4);
+            let x, y;
+            const margin = 60;
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+
+            switch(edge) {
+                case 0: // left edge
+                    x = -margin;
+                    y = Math.random() * vh * 0.8 + 60;
+                    break;
+                case 1: // right edge
+                    x = vw + margin;
+                    y = Math.random() * vh * 0.8 + 60;
+                    break;
+                case 2: // top edge
+                    x = Math.random() * vw;
+                    y = -margin;
+                    break;
+                case 3: // bottom edge (butterflies fly higher)
+                    x = Math.random() * vw;
+                    y = vh + margin;
+                    break;
+            }
+
+            // Flight parameters - each butterfly has unique motion
+            const speed = 0.2 + Math.random() * 0.3;
+            const phaseX = Math.random() * Math.PI * 2;
+            const phaseY = Math.random() * Math.PI * 2;
+            const freqX = 0.008 + Math.random() * 0.006;
+            const freqY = 0.006 + Math.random() * 0.005;
+            const ampX = 60 + Math.random() * 80;
+            const ampY = 40 + Math.random() * 60;
+            const driftAngle = Math.random() * Math.PI * 2;
+            const driftSpeed = 0.3 + Math.random() * 0.4;
+            const rotSpeed = 0.5 + Math.random() * 1.0;
+
+            // Lifecycle
+            const liveTime = 12000 + Math.random() * 15000; // 12-27 seconds before reset
+            let age = 0;
+            let fadeDir = 1;
+            let fadingIn = true;
+            let fadingOut = false;
+            let resetTimeout = null;
+
+            el.style.opacity = '0';
+            container.appendChild(el);
+
+            const data = { el, x, y, size, speed, phaseX, phaseY, freqX, freqY, ampX, ampY,
+                          driftAngle, driftSpeed, rotSpeed, age, liveTime, fadeDir, fadingIn, fadingOut, resetTimeout };
+            butterflies.push(data);
+        }
+
+        // Animation loop
+        let lastTime = performance.now();
+        let elapsed = 0;
+
+        function animateButterflies(time) {
+            const dt = Math.min(time - lastTime, 50); // cap dt
+            lastTime = time;
+            elapsed += dt;
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+
+            for (const b of butterflies) {
+                b.age += dt;
+
+                // Fade in at start
+                if (b.fadingIn) {
+                    b.el.style.opacity = Math.min(1, parseFloat(b.el.style.opacity) + 0.015);
+                    if (parseFloat(b.el.style.opacity) >= 1) b.fadingIn = false;
+                }
+
+                // Fade out and reset when time is up
+                if (b.age > b.liveTime && !b.fadingOut) {
+                    b.fadingOut = true;
+                }
+                if (b.fadingOut) {
+                    const cur = parseFloat(b.el.style.opacity);
+                    b.el.style.opacity = Math.max(0, cur - 0.008);
+                    if (cur <= 0) {
+                        // Reset butterfly
+                        b.age = 0;
+                        b.fadingOut = false;
+                        b.fadingIn = true;
+                        b.liveTime = 12000 + Math.random() * 15000;
+
+                        // New entry direction
+                        const edge = Math.floor(Math.random() * 4);
+                        switch(edge) {
+                            case 0: b.x = -b.size; b.y = Math.random() * vh * 0.8 + 60; break;
+                            case 1: b.x = vw + b.size; b.y = Math.random() * vh * 0.8 + 60; break;
+                            case 2: b.x = Math.random() * vw; b.y = -b.size; break;
+                            case 3: b.x = Math.random() * vw; b.y = vh + b.size; break;
+                        }
+
+                        // New flight params
+                        b.speed = 0.2 + Math.random() * 0.3;
+                        b.driftAngle = Math.random() * Math.PI * 2;
+                        b.phaseX = Math.random() * Math.PI * 2;
+                        b.phaseY = Math.random() * Math.PI * 2;
+                        b.el.style.opacity = '0';
+                    }
+                }
+
+                // Calculate movement
+                const t = elapsed * 0.001;
+
+                // Primary drift direction
+                const dx = Math.cos(b.driftAngle) * b.driftSpeed * dt * 0.06;
+                const dy = Math.sin(b.driftAngle) * b.driftSpeed * dt * 0.06;
+
+                // Sine wave oscillation for organic flight
+                const oscX = Math.sin(t * b.freqX * 60 + b.phaseX) * b.ampX * 0.0006 * dt;
+                const oscY = Math.sin(t * b.freqY * 60 + b.phaseY) * b.ampY * 0.0006 * dt;
+
+                // Gentle upward tendency (butterflies float)
+                const up = -0.015 * dt * 0.06;
+
+                // Random micro-fluctuations for realism
+                const microX = (Math.random() - 0.5) * 0.3;
+                const microY = (Math.random() - 0.5) * 0.3;
+
+                b.x += dx + oscX + microX;
+                b.y += dy + oscY + up + microY;
+
+                // Keep within reasonable bounds (soft boundaries)
+                const pad = 80;
+                if (b.x < -pad) { b.x = -pad; b.driftAngle = Math.PI - b.driftAngle + (Math.random() - 0.5) * 0.5; }
+                if (b.x > vw + pad) { b.x = vw + pad; b.driftAngle = Math.PI - b.driftAngle + (Math.random() - 0.5) * 0.5; }
+                if (b.y < -pad) { b.y = -pad; b.driftAngle = -b.driftAngle + (Math.random() - 0.5) * 0.5; }
+                if (b.y > vh * 0.85 + pad) { b.y = vh * 0.85 + pad; b.driftAngle = -b.driftAngle + (Math.random() - 0.5) * 0.5; }
+
+                // Calculate rotation based on direction of movement
+                const rotOffset = Math.sin(t * 1.5 + b.phaseX) * 15; // gentle wobble
+                const dirAngle = Math.atan2(dy + oscY, dx + oscX) * (180 / Math.PI);
+                const rot = dirAngle + rotOffset + 90; // +90 because butterfly SVG points up
+
+                // Apply transform
+                const scale = 0.8 + 0.4 * (0.5 + 0.5 * Math.sin(t * 0.5 + b.phaseY));
+                b.el.style.transform = `translate3d(${b.x}px, ${b.y}px, 0) rotate(${rot}deg) scale(${scale})`;
+            }
+
+            requestAnimationFrame(animateButterflies);
+        }
+
+        // Start after a short delay
+        setTimeout(() => {
+            requestAnimationFrame(animateButterflies);
+        }, 1500);
+    })();
+
     </script>
 </body>
 </html>
